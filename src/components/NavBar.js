@@ -7,17 +7,30 @@ const NavBar = () => {
     <Navbar bg="light" expand="lg">
       <Container>
         <Navbar.Brand>
-          <Link to="/">App Logo</Link>
+          <Link to="/">
+            <img
+              src="https://fintechyazilim.com/assets/img/business-2/logo.svg"
+              className="d-inline-block align-top"
+              alt="fintech-logo"
+              width="110"
+              height="60"
+            />
+          </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
+            <Link to="/login" className="nav-livk">
+              Login
+            </Link>
+            <Link to="/register" className="nav-livk">
+              Register
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
   );
 };
+
 export default NavBar;
