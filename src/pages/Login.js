@@ -1,18 +1,23 @@
 import { Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { decodeToken } from 'react-jwt';
+import { useSelector, useDispatch } from 'react-redux';
+import { loginSuccess } from '../redux/actions/LoginActions';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const formData = new FormData();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   formData.append('email', email);
   formData.append('password', password);
-  formData.append('LoginType', '6057fa54-eeb3-ec11-ac1f-000c29330757');
+  formData.append('LoginType', '63aeec11-0e14-440e-b3ed-90893dcd9c52');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +27,10 @@ const Login = () => {
       data: formData,
     })
       .then((data) => {
-        console.log(data);
+        const decodedToken = decodeToken(data.data.Result.AccessToken);
+        console.log(decodedToken);
+        dispatch(loginSuccess(decodedToken));
+        data.data.IsSuccess === true && navigate('/main');
       })
       .catch((err) => console.log(err));
     setEmail('');
@@ -30,7 +38,7 @@ const Login = () => {
   };
 
   return (
-    <div className="color-overlay bg d-flex align-items-center justify-content-center border vh-100 ">
+    <div className="color-overlay bg-1 d-flex align-items-center justify-content-center border vh-100 ">
       <Form className=" bg-light p-5 rounded" onSubmit={handleSubmit}>
         <h1 className="mb-5">Login Page</h1>
         <Form.Group className="mb-3 " controlId="formBasicEmail">
@@ -46,7 +54,6 @@ const Login = () => {
             We'll never share your email with anyone else.
           </Form.Text>
         </Form.Group>
-        <h1> </h1>
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
@@ -56,6 +63,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
+          <h6>99Salman99*</h6>
           <Link to="/forgot-password">Forgot password?</Link>
         </Form.Group>
         <Button variant="primary" type="submit" className="mt-3">

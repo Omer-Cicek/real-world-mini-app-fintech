@@ -2,8 +2,15 @@
   text-align: center;
 }
 
-.bg {
+.bg-1 {
   background-image: url('https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(20).webp');
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.bg-2 {
+  background-image: url('https://picsum.photos/seed/picsum/800/1000');
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
