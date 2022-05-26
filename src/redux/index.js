@@ -5,6 +5,4 @@ const reducers = combineReducers({
   LoginReducers: LoginReducer,
 });
 
-const combinedStores = createStore(reducers);
-
-export default combinedStores;
+export const combinedStores = createStore(reducers);

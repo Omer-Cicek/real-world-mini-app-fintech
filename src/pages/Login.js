@@ -10,6 +10,7 @@ import { loginSuccess } from '../redux/actions/LoginActions';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loginData, setLoginData] = useState({});
 
   const formData = new FormData();
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Login = () => {
   formData.append('password', password);
   formData.append('LoginType', '63aeec11-0e14-440e-b3ed-90893dcd9c52');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     axios('https://dev-smoothie-api.fintechyazilim.com/api/User/Login', {
       method: 'post',
@@ -28,8 +29,8 @@ const Login = () => {
     })
       .then((data) => {
         const decodedToken = decodeToken(data.data.Result.AccessToken);
-        console.log(decodedToken);
-        dispatch(loginSuccess(decodedToken));
+        setLoginData(decodedToken);
+        dispatch(loginSuccess(loginData));
         data.data.IsSuccess === true && navigate('/main');
       })
       .catch((err) => console.log(err));
