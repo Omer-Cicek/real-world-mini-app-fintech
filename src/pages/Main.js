@@ -28,8 +28,8 @@ const Main = () => {
       }
     )
       .then((data) => {
-        console.log(data.data);
         setCustomerInfo(data.data.Result);
+        console.log('DATAUSERS', data.data);
       })
       .catch((err) => console.log(err));
   };
@@ -39,8 +39,7 @@ const Main = () => {
   }, []);
 
   const handleUserAccounts = (id) => {
-    // navigate('/customer-accounts-list', { state: { id } });
-    console.log(id);
+    navigate('/customer-accounts-list', { state: { id } });
   };
 
   return (

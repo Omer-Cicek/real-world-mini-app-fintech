@@ -23,7 +23,7 @@ const ForgotPassword = () => {
     )
       .then((data) => {
         console.log(data);
-        data.data.IsSuccess === true && navigate('/change-password');
+        data.data.IsSuccess === true && navigate('/forgot-password-change');
       })
       .catch((err) => console.log(err));
   };

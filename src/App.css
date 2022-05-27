@@ -16,6 +16,13 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+.bg-3 {
+  background-image: url('https://picsum.photos/800');
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
 a:link {
   text-decoration: none;

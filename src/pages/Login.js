@@ -17,7 +17,7 @@ const Login = () => {
 
   formData.append('email', email);
   formData.append('password', password);
-  formData.append('LoginType', '63aeec11-0e14-440e-b3ed-90893dcd9c52');
+  formData.append('LoginType', '50dcd869-eeb3-ec11-ac1f-000c29330757');
 
   const handleSubmit = (e) => {
     e.preventDefault();
