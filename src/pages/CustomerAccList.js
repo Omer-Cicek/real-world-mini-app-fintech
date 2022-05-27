@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import CustomerAccountListService from '../services/CustomerAccountListService';
 
 const CustomerAccList = () => {
   const {
@@ -15,16 +16,9 @@ const CustomerAccList = () => {
   formData.append('Parameters', `{ CustomerId: '${id}'}`);
 
   const handleAccountList = () => {
-    axios(
-      'https://dev-smoothie-api.fintechyazilim.com/api/v1/FinTech/Execute',
-      {
-        method: 'post',
-
-        data: formData,
-      }
-    )
-      .then((data) => console.log('DATA', data.data))
-      .catch((err) => console.log('ERROR', err));
+    CustomerAccountListService.getAll(id).then((res) => {
+      console.log(res);
+    });
   };
 
   useEffect(() => {
