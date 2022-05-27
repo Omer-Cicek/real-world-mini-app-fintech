@@ -4,13 +4,12 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { decodeToken } from 'react-jwt';
-import { useSelector, useDispatch } from 'react-redux';
-import { loginSuccess } from '../redux/actions/LoginActions';
+import { useDispatch } from 'react-redux';
+import loginSuccess from '../redux/actions/LoginActions';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loginData, setLoginData] = useState({});
 
   const formData = new FormData();
   const navigate = useNavigate();
@@ -29,8 +28,7 @@ const Login = () => {
     })
       .then((data) => {
         const decodedToken = decodeToken(data.data.Result.AccessToken);
-        setLoginData(decodedToken);
-        dispatch(loginSuccess(loginData));
+        dispatch(loginSuccess(decodedToken));
         data.data.IsSuccess === true && navigate('/main');
       })
       .catch((err) => console.log(err));

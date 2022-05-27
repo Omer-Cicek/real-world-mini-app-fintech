@@ -1,6 +1,6 @@
-import { LOGIN_SUCCESS } from '../types/LoginTypes';
-
-export const loginSuccess = (payload) => ({
-  type: LOGIN_SUCCESS,
-  payload: payload,
+const loginSuccess = (userObj) => ({
+  type: 'LOGIN_SUCCESS',
+  payload: userObj,
 });
+
+export default loginSuccess;

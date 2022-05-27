@@ -1,15 +1,10 @@
-import { LOGIN_SUCCESS } from '../types/LoginTypes';
-
-const INITIAL_STATE = {
-  data: {},
-};
-
-const LoginReducer = (state = INITIAL_STATE, { type, payload }) => {
-  switch (type) {
-    case LOGIN_SUCCESS:
+const LoginReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'LOGIN_SUCCESS':
       return {
         ...state,
-        data: payload,
+        user: action.payload,
+        loggedIn: true,
       };
     default:
       return state;
