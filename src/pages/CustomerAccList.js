@@ -6,17 +6,21 @@ const CustomerAccList = () => {
   const {
     state: { id },
   } = useLocation();
-  console.log(typeof id);
+  console.log(id);
 
   const formData = new FormData();
 
   formData.append('Action', 'GetAccountByCustomerId');
   formData.append('Version', '1');
-  formData.append('Parameters', '{ CustomerId: `${id}`}');
+  formData.append('Parameters', `{ CustomerId: '${id}'}`);
   // formData.append(
   //   'Parameters',
   //   "{ CustomerId: '754FFAEB-D1C2-EC11-AC1F-000C29330757'}"
   // );
+
+  const config = {
+    headers: { 'content-type': 'multipart/form-data' },
+  };
 
   const handleAccountList = () => {
     axios(
@@ -25,7 +29,8 @@ const CustomerAccList = () => {
         method: 'post',
 
         data: formData,
-      }
+      },
+      config
     )
       .then((data) => console.log(data))
       .catch((err) => console.log(err));

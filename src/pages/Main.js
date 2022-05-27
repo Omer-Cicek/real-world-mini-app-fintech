@@ -39,7 +39,8 @@ const Main = () => {
   }, []);
 
   const handleUserAccounts = (id) => {
-    navigate('/customer-accounts-list', { state: { id } });
+    // navigate('/customer-accounts-list', { state: { id } });
+    console.log(id);
   };
 
   return (
