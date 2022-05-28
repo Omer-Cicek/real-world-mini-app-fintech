@@ -7,7 +7,7 @@ const NavBar = () => {
     <Navbar bg="light" expand="lg">
       <Container>
         <Navbar.Brand>
-          <Link to="/">
+          <Link to="/main">
             <img
               src="https://fintechyazilim.com/assets/img/business-2/logo.svg"
               className="d-inline-block align-top"
@@ -22,9 +22,6 @@ const NavBar = () => {
           <Nav className="me-auto">
             <Link to="/login" className="nav-livk">
               Login
-            </Link>
-            <Link to="/register" className="nav-livk">
-              Register
             </Link>
           </Nav>
         </Navbar.Collapse>

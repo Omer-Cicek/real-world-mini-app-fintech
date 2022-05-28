@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
-import axios from 'axios';
 import { Button } from 'react-bootstrap';
 import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
+import CustomerAccountListService from '../services/CustomerAccountListService';
 
 const Main = () => {
   const [customerInfo, setCustomerInfo] = useState([]);
@@ -17,14 +17,7 @@ const Main = () => {
   formData.append('Parameters', '{}');
 
   const handleCustomers = () => {
-    axios(
-      'https://dev-smoothie-api.fintechyazilim.com/api/v1/FinTech/Execute',
-      {
-        method: 'post',
-
-        data: formData,
-      }
-    )
+    CustomerAccountListService.getAll('GetCustomer', 1)
       .then((data) => {
         setCustomerInfo(data.data.Result);
         console.log('DATAUSERS', data.data);

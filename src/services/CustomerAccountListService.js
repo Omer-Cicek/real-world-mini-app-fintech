@@ -1,8 +1,8 @@
 import ExecutePost from './helpers/ExecutePost';
 
 export default {
-  getAll(CustomerId) {
+  getAll(Action, Version = 1, CustomerId) {
     const data = { CustomerId };
-    return ExecutePost.executeFormData('GetAccountByCustomerId', 1, data);
+    return ExecutePost.executeFormData(Action, Version, data);
   },
 };

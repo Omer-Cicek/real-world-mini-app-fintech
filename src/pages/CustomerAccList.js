@@ -19,7 +19,7 @@ const CustomerAccList = () => {
   formData.append('Parameters', `{ CustomerId: '${id}'}`);
 
   const handleAccountList = () => {
-    CustomerAccountListService.getAll(id)
+    CustomerAccountListService.getAll('GetAccountByCustomerId', 1, id)
       .then((res) => {
         setUserAccounts(res.data.Result);
         setIsLoading(false);
