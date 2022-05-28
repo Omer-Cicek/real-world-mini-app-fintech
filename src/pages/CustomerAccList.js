@@ -6,6 +6,8 @@ import CustomerAccountListService from '../services/CustomerAccountListService';
 
 const CustomerAccList = () => {
   const [userAccounts, setUserAccounts] = useState([]);
+  const [noData, setNoData] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     state: { id },
@@ -18,13 +20,19 @@ const CustomerAccList = () => {
   formData.append('Parameters', `{ CustomerId: '${id}'}`);
 
   const handleAccountList = () => {
-    CustomerAccountListService.getAll(id).then((res) => {
-      setUserAccounts(res.data.Result);
-      console.log(res);
-    });
+    CustomerAccountListService.getAll(id)
+      .then((res) => {
+        setUserAccounts(res.data.Result);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setNoData(true);
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
+    setIsLoading(true);
     handleAccountList();
   }, []);
 
@@ -56,8 +64,12 @@ const CustomerAccList = () => {
           );
         })}
       </Table>
-      {userAccounts.length === 0 && (
+      {noData && (
         <h2 className="lead text-center">User has no active account</h2>
+      )}
+      {isLoading && <h2 className="lead text-center">Loading...</h2>}
+      {!isLoading && userAccounts.length === 0 && (
+        <h2 className="lead text-center">User has no active account!</h2>
       )}
     </>
   );

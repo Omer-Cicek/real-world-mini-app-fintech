@@ -15,7 +15,7 @@ const AppRouter = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route
-          path="/forgot-password-change"
+          path="/ForgotPasswordChange"
           element={<ForgotPasswordChange />}
         />
         <Route path="/main" element={<Main />} />

@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import loginSuccess from '../redux/actions/LoginActions';
+import { useDispatch } from 'react-redux';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
 
   const formData = new FormData();
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   formData.append('email', email);
 
@@ -23,7 +25,7 @@ const ForgotPassword = () => {
     )
       .then((data) => {
         console.log(data);
-        data.data.IsSuccess === true && navigate('/forgot-password-change');
+        dispatch(loginSuccess(email));
       })
       .catch((err) => console.log(err));
   };

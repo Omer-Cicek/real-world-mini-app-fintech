@@ -7,7 +7,7 @@ import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 
 const Main = () => {
-  const [customerInfo, setCustomerInfo] = useState();
+  const [customerInfo, setCustomerInfo] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { loggedIn } = useSelector((state) => state.LoginReducer);
 
@@ -50,13 +50,6 @@ const Main = () => {
 
   return (
     <>
-      {isLoading && (
-        <Spinner
-          animation="border"
-          className="text-center"
-          variant="secondary"
-        />
-      )}
       <Table striped bordered hover size="sm">
         <thead>
           <tr>
@@ -68,6 +61,7 @@ const Main = () => {
             <th>User Account's List</th>
           </tr>
         </thead>
+
         <tbody>
           {customerInfo?.map((customer, index) => {
             return (
@@ -90,6 +84,7 @@ const Main = () => {
           })}
         </tbody>
       </Table>
+      {isLoading && <h2 className="lead text-center">Loading...</h2>}
     </>
   );
 };

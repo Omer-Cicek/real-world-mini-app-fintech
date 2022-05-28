@@ -4,7 +4,6 @@ const LoginReducer = (state = {}, action) => {
       return {
         ...state,
         user: action.payload,
-        loggedIn: true,
       };
     default:
       return state;

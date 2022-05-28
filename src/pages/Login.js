@@ -2,10 +2,11 @@ import { Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { decodeToken } from 'react-jwt';
 import { useDispatch } from 'react-redux';
 import loginSuccess from '../redux/actions/LoginActions';
+import alertsLoginPage from '../services/helpers/SweetAlerts';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -29,9 +30,18 @@ const Login = () => {
       .then((data) => {
         const decodedToken = decodeToken(data.data.Result.AccessToken);
         dispatch(loginSuccess(decodedToken));
+        console.log(data);
         data.data.IsSuccess === true && navigate('/main');
+        alertsLoginPage(
+          data.data.IsSuccess,
+          data.data.Result.Message || 'Successfully logged in!'
+        );
       })
-      .catch((err) => console.log(err));
+
+      .catch((err) => {
+        console.log(err);
+        alertsLoginPage(err.response.status, err.message);
+      });
     setEmail('');
     setPassword('');
   };
