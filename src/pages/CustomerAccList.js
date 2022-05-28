@@ -12,12 +12,6 @@ const CustomerAccList = () => {
     state: { id },
   } = useLocation();
 
-  const formData = new FormData();
-
-  formData.append('Action', 'GetAccountByCustomerId');
-  formData.append('Version', '1');
-  formData.append('Parameters', `{ CustomerId: '${id}'}`);
-
   const handleAccountList = () => {
     CustomerAccountListService.getAll('GetAccountByCustomerId', 1, id)
       .then((res) => {

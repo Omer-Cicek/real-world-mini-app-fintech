@@ -10,11 +10,6 @@ const Main = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-  const formData = new FormData();
-
-  formData.append('Action', 'GetCustomer');
-  formData.append('Version', '1');
-  formData.append('Parameters', '{}');
 
   const handleCustomers = () => {
     CustomerAccountListService.getAll('GetCustomer', 1)
