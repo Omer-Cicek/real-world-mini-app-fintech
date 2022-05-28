@@ -13,4 +13,14 @@ const SweetAlertsFunction = (loggedIn, loginMessage) => {
   });
 };
 
+export const SweetAlertsLogin = () => {
+  MySwal.fire({
+    position: 'top-end',
+    icon: 'warning',
+    title: 'You need to be logged in first!',
+    showConfirmButton: false,
+    timer: 1000,
+  });
+};
+
 export default SweetAlertsFunction;

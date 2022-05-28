@@ -6,6 +6,7 @@ import Main from '../pages/Main';
 import CustomerAccList from '../pages/CustomerAccList';
 import ForgotPasswordChange from '../pages/ForgotPasswordChange';
 import PrivateRouter from './PrivateRouter';
+import ChangePassword from '../pages/ChangePassword';
 
 const AppRouter = () => {
   return (
@@ -14,13 +15,18 @@ const AppRouter = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+
+        <Route path="/ChangePassword" element={<PrivateRouter />}>
+          <Route path="" element={<ChangePassword />} />
+        </Route>
+        <Route path="/main" element={<PrivateRouter />}>
+          <Route path="" element={<Main />} />
+        </Route>
+
         <Route
           path="/ForgotPasswordChange"
           element={<ForgotPasswordChange />}
         />
-        <Route path="/main" element={<PrivateRouter />}>
-          <Route path="" element={<Main />} />
-        </Route>
         <Route path="/customer-accounts-list" element={<PrivateRouter />}>
           <Route path="" element={<CustomerAccList />} />
         </Route>

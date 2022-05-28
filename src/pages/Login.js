@@ -67,15 +67,17 @@ const Login = () => {
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Password"
+            placeholder="Enter password"
             className=" shadow-none"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
-          <h6>99Salman99*</h6>
-          <Link to="/forgot-password">Forgot password?</Link>
+          <Form.Group className="d-flex justify-content-between">
+            <Link to="/forgot-password">Forgot password?</Link>
+          </Form.Group>
+          {/* <h6>99Salman99*</h6> */}
         </Form.Group>
-        <Button variant="primary" type="submit" className="mt-3">
+        <Button variant="primary" type="submit" className="mt-3 w-100 mx-auto">
           Submit
         </Button>
       </Form>
