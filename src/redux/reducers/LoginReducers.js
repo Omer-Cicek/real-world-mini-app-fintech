@@ -3,7 +3,8 @@ const LoginReducer = (state = {}, action) => {
     case 'LOGIN_SUCCESS':
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.decodedToken,
+        loggedIn: action.payload.loggedIn,
       };
     default:
       return state;

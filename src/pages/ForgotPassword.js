@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import loginSuccess from '../redux/actions/LoginActions';
 import { useDispatch } from 'react-redux';
+import SweetAlertsFunction from '../services/helpers/SweetAlerts';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -26,8 +26,12 @@ const ForgotPassword = () => {
       .then((data) => {
         console.log(data);
         dispatch(loginSuccess(email));
+        SweetAlertsFunction(data.data.IsSuccess, data.data.Result.Message);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        SweetAlertsFunction(err.response.status, err.message);
+      });
   };
 
   return (

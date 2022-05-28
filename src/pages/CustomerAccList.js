@@ -1,5 +1,4 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import CustomerAccountListService from '../services/CustomerAccountListService';

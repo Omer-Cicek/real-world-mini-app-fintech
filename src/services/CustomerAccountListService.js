@@ -1,4 +1,3 @@
-import axios from 'axios';
 import ExecutePost from './helpers/ExecutePost';
 
 export default {

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useSearchParams } from 'react-router-dom';
+import SweetAlertsFunction from '../services/helpers/SweetAlerts';
 
 const ForgotPasswordChange = () => {
   const [email, setEmail] = useState('');
@@ -30,8 +31,12 @@ const ForgotPasswordChange = () => {
     )
       .then((data) => {
         console.log(data);
+        SweetAlertsFunction(data.data.IsSuccess, data.data.Result.Message);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        SweetAlertsFunction(err.response.status, err.message);
+      });
   };
 
   return (

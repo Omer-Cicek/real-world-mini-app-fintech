@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
-import { Button, Spinner } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 
 const Main = () => {
   const [customerInfo, setCustomerInfo] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { loggedIn } = useSelector((state) => state.LoginReducer);
 
   const navigate = useNavigate();
-
   const formData = new FormData();
 
   formData.append('Action', 'GetCustomer');
