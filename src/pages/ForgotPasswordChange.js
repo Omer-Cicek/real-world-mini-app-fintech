@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import SweetAlertsFunction from '../services/helpers/SweetAlerts';
 
 const ForgotPasswordChange = () => {
@@ -9,6 +9,7 @@ const ForgotPasswordChange = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const paramURL = searchParams.get('param');
 
@@ -32,6 +33,7 @@ const ForgotPasswordChange = () => {
       .then((data) => {
         console.log(data);
         SweetAlertsFunction(data.data.IsSuccess, data.data.Result.Message);
+        data.data.IsSuccess && navigate('/login');
       })
       .catch((err) => {
         console.log(err);

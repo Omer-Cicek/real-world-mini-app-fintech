@@ -34,9 +34,11 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav ">
           <Nav className=" ms-auto">
-            <Link to="/login" className="nav-livk mx-3 ">
-              Login
-            </Link>
+            {!loggedIn && (
+              <Link to="/login" className="nav-livk mx-3 ">
+                Login
+              </Link>
+            )}
             <Link
               to="/ChangePassword"
               className="nav-livk  mx-3"
