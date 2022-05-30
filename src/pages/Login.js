@@ -13,11 +13,7 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const signInValidationSchema = Yup.object({
-    // username: Yup.string()
-    //   .required('Display name is required')
-    //   .min(2, 'Too short')
-    //   .max(15, 'Must be 15 char or less'),
+  const LoginValidationSchema = Yup.object({
     email: Yup.string().email('Invalid Email').required('Email is required'),
     password: Yup.string()
       .required('No password provided')
@@ -26,10 +22,6 @@ const Login = () => {
       .matches(/[a-z]+/, 'Password must have a lowercase')
       .matches(/[A-Z]+/, 'Password must have a uppercase')
       .matches(/[!?.@#$%^&*()-+]+/, 'Password must have a special char'),
-    // password2: Yup.string()
-    //   .required('No password provided')
-    //   .min(8, 'Password is too short - should be 8 chars minimum')
-    //   .oneOf([Yup.ref('password'), null], 'Passwords must match'),
   });
 
   const handleSubmit = (values, { resetForm }) => {
@@ -69,7 +61,7 @@ const Login = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
-        validationSchema={signInValidationSchema}
+        validationSchema={LoginValidationSchema}
       >
         {({
           handleSubmit,
@@ -87,7 +79,9 @@ const Login = () => {
                 name="email"
                 type="email"
                 placeholder="Enter email"
-                className=" shadow-none"
+                className={
+                  touched.email && errors.email ? 'border-danger' : null
+                }
                 onChange={handleChange}
                 value={values.email}
                 onBlur={handleBlur}
@@ -95,7 +89,9 @@ const Login = () => {
               <div id="emailHelp" className="form-text">
                 We'll never share your email with anyone else.
               </div>
-              <p className="text-danger">{(touched.email, errors.email)}</p>
+              {touched.email && errors.email ? (
+                <p className="text-danger">{errors.email}</p>
+              ) : null}
             </Form.Group>
             <Form.Group className="mb-1" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
@@ -103,14 +99,16 @@ const Login = () => {
                 name="password"
                 type="password"
                 placeholder="Enter password"
-                className=" shadow-none"
+                className={
+                  touched.password && errors.password ? 'border-danger' : null
+                }
                 onChange={handleChange}
                 value={values.password}
                 onBlur={handleBlur}
               />
-              <p className="text-danger">
-                {(touched.password, errors.password)}
-              </p>
+              {touched.password && errors.password ? (
+                <p className="text-danger">{errors.password}</p>
+              ) : null}
               <h6>99Salman99*</h6>
               <Form.Group className="d-flex justify-content-between">
                 <Link to="/forgot-password">Forgot password?</Link>

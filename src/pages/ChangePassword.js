@@ -1,23 +1,36 @@
 import axios from 'axios';
-import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import SweetAlertsFunction from '../services/helpers/SweetAlerts';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 const ChangePassword = () => {
-  const [email, setEmail] = useState('');
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-
-  const navigate = useNavigate();
   const formData = new FormData();
+  const navigate = useNavigate();
 
-  const handleSubmitChangePassword = (e) => {
-    e.preventDefault();
+  const ChangePasswordValidationSchema = Yup.object({
+    email: Yup.string().email('Invalid Email').required('Email is required'),
+    password: Yup.string()
+      .required('No password provided')
+      .min(8, 'Password is too short - should be 8 chars minimum')
+      .matches(/\d+/, 'Password must have a number')
+      .matches(/[a-z]+/, 'Password must have a lowercase')
+      .matches(/[A-Z]+/, 'Password must have a uppercase')
+      .matches(/[!?.@#$%^&*()-+]+/, 'Password must have a special char'),
+    newPassword: Yup.string()
+      .required('No password provided')
+      .min(8, 'Password is too short - should be 8 chars minimum')
+      .matches(/\d+/, 'Password must have a number')
+      .matches(/[a-z]+/, 'Password must have a lowercase')
+      .matches(/[A-Z]+/, 'Password must have a uppercase')
+      .matches(/[!?.@#$%^&*()-+]+/, 'Password must have a special char'),
+  });
 
-    formData.append('Email', email);
-    formData.append('CurrentPassword', currentPassword);
-    formData.append('Password', newPassword);
+  const handleSubmit = (values, { resetForm }) => {
+    formData.append('Email', values.email);
+    formData.append('CurrentPassword', values.password);
+    formData.append('Password', values.newPassword);
 
     axios(
       'https://dev-smoothie-api.fintechyazilim.com/api/User/ChangePassword',
@@ -40,56 +53,100 @@ const ChangePassword = () => {
         console.log(err);
         SweetAlertsFunction(err.response.status, err.message);
       });
-    setEmail('');
-    setCurrentPassword('');
-    setNewPassword('');
+    resetForm();
+  };
+
+  const initialValues = {
+    email: '',
+    password: '',
+    newPassword: '',
   };
 
   return (
     <div className="color-overlay bg-1 d-flex align-items-center justify-content-center border vh-100 ">
-      <Form
-        className=" bg-light p-5 rounded"
-        onSubmit={handleSubmitChangePassword}
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={ChangePasswordValidationSchema}
       >
-        <h1 className="mb-5">Change Password</h1>
-        <Form.Group className="mb-3 " controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            className=" shadow-none"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email || ''}
-          />
-          <p>fintechtestuser@yandex.com</p>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Current Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Current Password"
-            className=" shadow-none"
-            onChange={(e) => setCurrentPassword(e.target.value)}
-            value={currentPassword || ''}
-          />
-          <p>99Salman99*</p>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword2">
-          <Form.Label>New Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="New Password"
-            className=" shadow-none"
-            onChange={(e) => setNewPassword(e.target.value)}
-            value={newPassword || ''}
-          />
-        </Form.Group>
-        <Form.Group className="d-flex">
-          <Button variant="primary" type="submit" className="mt-3 w-75 mx-auto">
-            Submit
-          </Button>
-        </Form.Group>
-      </Form>
+        {({
+          handleSubmit,
+          values,
+          handleChange,
+          errors,
+          touched,
+          handleBlur,
+        }) => (
+          <Form className=" bg-light p-5 rounded" onSubmit={handleSubmit}>
+            <h1 className="mb-5">Change Password</h1>
+            <Form.Group className="mb-3 " controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                name="email"
+                type="email"
+                placeholder="Enter email"
+                className={
+                  touched.email && errors.email ? 'border-danger' : null
+                }
+                onChange={handleChange}
+                value={values.email}
+                onBlur={handleBlur}
+              />
+              {touched.email && errors.email ? (
+                <p className="text-danger">{errors.email}</p>
+              ) : null}
+              <p>fintechtestuser@yandex.com</p>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Current Password</Form.Label>
+              <Form.Control
+                name="password"
+                type="password"
+                placeholder="Current Password"
+                className={
+                  touched.password && errors.password ? 'border-danger' : null
+                }
+                onChange={handleChange}
+                value={values.password}
+                onBlur={handleBlur}
+              />
+              {touched.password && errors.password ? (
+                <p className="text-danger">{errors.password}</p>
+              ) : null}
+              <p>99Salman99*</p>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword2">
+              <Form.Label>New Password</Form.Label>
+              <Form.Control
+                name="newPassword"
+                type="password"
+                placeholder="New Password"
+                className={
+                  touched.newPassword && errors.newPassword
+                    ? 'border-danger'
+                    : null
+                }
+                onChange={handleChange}
+                value={values.newPassword}
+                onBlur={handleBlur}
+              />
+              {console.log(values)}
+              {touched.newPassword && errors.newPassword ? (
+                <p className="text-danger">{errors.newPassword}</p>
+              ) : null}
+            </Form.Group>
+            <Form.Group className="d-flex">
+              <Button
+                variant="primary"
+                type="submit"
+                className="mt-3 w-75 mx-auto"
+              >
+                Submit
+              </Button>
+            </Form.Group>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };

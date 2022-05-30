@@ -1,26 +1,35 @@
 import axios from 'axios';
-import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import SweetAlertsFunction from '../services/helpers/SweetAlerts';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 const ForgotPasswordChange = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-
+  const formData = new FormData();
   const paramURL = searchParams.get('param');
 
-  const formData = new FormData();
+  const LoginPasswordChangeValidationSchema = Yup.object({
+    email: Yup.string().email('Invalid Email').required('Email is required'),
+    password: Yup.string()
+      .required('No password provided')
+      .min(8, 'Password is too short - should be 8 chars minimum')
+      .matches(/\d+/, 'Password must have a number')
+      .matches(/[a-z]+/, 'Password must have a lowercase')
+      .matches(/[A-Z]+/, 'Password must have a uppercase')
+      .matches(/[!?.@#$%^&*()-+]+/, 'Password must have a special char'),
+    confirmPassword: Yup.string()
+      .required('No password provided')
+      .min(8, 'Password is too short - should be 8 chars minimum')
+      .oneOf([Yup.ref('password'), null], 'Passwords must match'),
+  });
 
-  formData.append('ForgotPasswordRequestId', paramURL);
-  formData.append('Email', email);
-  formData.append('Password', password);
-
-  const handleSubmitChange = (e) => {
-    e.preventDefault();
+  const handleSubmit = (values, { resetForm }) => {
+    formData.append('ForgotPasswordRequestId', paramURL);
+    formData.append('Email', values.email);
+    formData.append('Password', values.password);
 
     axios(
       `https://dev-smoothie-api.fintechyazilim.com/api/User/ForgotPasswordChange`,
@@ -39,52 +48,93 @@ const ForgotPasswordChange = () => {
         console.log(err);
         SweetAlertsFunction(err.response.status, err.message);
       });
+    resetForm();
+  };
+
+  const initialValues = {
+    email: '',
+    password: '',
+    confirmPassword: '',
   };
 
   return (
     <div className="color-overlay bg-3 d-flex align-items-center justify-content-center border vh-100 ">
-      <Form className=" bg-light p-5 rounded" onSubmit={handleSubmitChange}>
-        <h1 className="mb-5">Change Password</h1>
-        <Form.Group className="mb-3 " controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            className=" shadow-none"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email || ''}
-          />
-          <p>fintechtestuser@yandex.com</p>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword2">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            className=" shadow-none"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password || ''}
-          />
-          <p>Fintech123</p>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Confirm password"
-            className=" shadow-none"
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            value={confirmPassword || ''}
-          />
-          <Form.Text className="text-danger">
-            Both password must match
-          </Form.Text>
-        </Form.Group>
-
-        <Button variant="primary" type="submit" className="mt-3">
-          Submit
-        </Button>
-      </Form>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={LoginPasswordChangeValidationSchema}
+      >
+        {({
+          handleSubmit,
+          values,
+          handleChange,
+          errors,
+          touched,
+          handleBlur,
+        }) => (
+          <Form className=" bg-light p-5 rounded" onSubmit={handleSubmit}>
+            <h1 className="mb-5">Change Password</h1>
+            <Form.Group className="mb-3 " controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                name="email"
+                type="email"
+                placeholder="Enter email"
+                className={
+                  touched.email && errors.email ? 'border-danger' : null
+                }
+                onChange={handleChange}
+                value={values.email}
+                onBlur={handleBlur}
+              />
+              {touched.email && errors.email ? (
+                <p className="text-danger">{errors.email}</p>
+              ) : null}
+              <p>fintechtestuser@yandex.com</p>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword2">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                name="password"
+                type="password"
+                placeholder="Password"
+                className={
+                  touched.password && errors.password ? 'border-danger' : null
+                }
+                onChange={handleChange}
+                value={values.password}
+                onBlur={handleBlur}
+              />
+              {touched.password && errors.password ? (
+                <p className="text-danger">{errors.password}</p>
+              ) : null}
+              <p>99Salman99*</p>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Confirm Password</Form.Label>
+              <Form.Control
+                name="confirmPassword"
+                type="password"
+                placeholder="Confirm password"
+                className={
+                  touched.confirmPassword && errors.confirmPassword
+                    ? 'border-danger'
+                    : null
+                }
+                onChange={handleChange}
+                value={values.confirmPassword}
+                onBlur={handleBlur}
+              />
+              {touched.confirmPassword && errors.confirmPassword ? (
+                <p className="text-danger">{errors.confirmPassword}</p>
+              ) : null}
+            </Form.Group>
+            <Button variant="primary" type="submit" className="mt-3">
+              Submit
+            </Button>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };
