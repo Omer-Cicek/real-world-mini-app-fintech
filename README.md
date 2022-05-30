@@ -6,4 +6,4 @@
 
 ### `npm test`
 
-Project Link: https://omer-cicek.github.io/real-world-mini-app-fintech/
+Project Link: real-world-mini-app-fintech.vercel.app
