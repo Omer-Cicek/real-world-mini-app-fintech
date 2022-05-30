@@ -40,12 +40,10 @@ const ForgotPasswordChange = () => {
       }
     )
       .then((data) => {
-        console.log(data);
         SweetAlertsFunction(data.data.IsSuccess, data.data.Result.Message);
         data.data.IsSuccess && navigate('/login');
       })
       .catch((err) => {
-        console.log(err);
         SweetAlertsFunction(err.response.status, err.message);
       });
     resetForm();

@@ -41,7 +41,6 @@ const ChangePassword = () => {
       }
     )
       .then((data) => {
-        console.log(data);
         SweetAlertsFunction(
           data.data.IsSuccess,
           data.data.Result.Message || 'Successfully logged in!'
@@ -50,7 +49,6 @@ const ChangePassword = () => {
       })
 
       .catch((err) => {
-        console.log(err);
         SweetAlertsFunction(err.response.status, err.message);
       });
     resetForm();
@@ -130,7 +128,6 @@ const ChangePassword = () => {
                 value={values.newPassword}
                 onBlur={handleBlur}
               />
-              {console.log(values)}
               {touched.newPassword && errors.newPassword ? (
                 <p className="text-danger">{errors.newPassword}</p>
               ) : null}

@@ -37,7 +37,6 @@ const Login = () => {
         const decodedToken = decodeToken(data.data.Result.AccessToken);
         data.data.IsSuccess === true &&
           dispatch(loginSuccess({ decodedToken, loggedIn: true }));
-        console.log(data);
         data.data.IsSuccess === true && navigate('/');
         SweetAlertsFunction(
           data.data.IsSuccess,
@@ -45,7 +44,6 @@ const Login = () => {
         );
       })
       .catch((err) => {
-        console.log(err);
         SweetAlertsFunction(err.response.status, err.message);
       });
     resetForm();

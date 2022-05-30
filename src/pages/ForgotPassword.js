@@ -29,12 +29,10 @@ const ForgotPassword = () => {
       }
     )
       .then((data) => {
-        console.log(data);
         dispatch(loginSuccess(values.email));
         SweetAlertsFunction(data.data.IsSuccess, data.data.Result.Message);
       })
       .catch((err) => {
-        console.log(err);
         SweetAlertsFunction(err.response.status, err.message);
       });
     resetForm();

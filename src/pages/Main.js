@@ -15,11 +15,9 @@ const Main = () => {
     CustomerAccountListService.getAll('GetCustomer', 1)
       .then((data) => {
         setCustomerInfo(data.data.Result);
-        console.log('DATAUSERS', data.data);
         setIsLoading(false);
       })
       .catch((err) => {
-        console.log(err);
         setIsLoading(false);
       });
   };

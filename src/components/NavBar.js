@@ -9,7 +9,6 @@ import loginSuccess from '../redux/actions/LoginActions';
 const NavBar = () => {
   const dispatch = useDispatch();
   const { loggedIn } = useSelector((state) => state.LoginReducer);
-  console.log(loggedIn);
   const handleLogout = () => {
     dispatch(loginSuccess({}));
   };
