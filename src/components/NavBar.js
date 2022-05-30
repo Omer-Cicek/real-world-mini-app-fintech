@@ -18,7 +18,7 @@ const NavBar = () => {
     <Navbar bg="light" expand="md">
       <Container className="d-flex">
         <Navbar.Brand>
-          <Link to="/real-world-mini-app-fintech">
+          <Link to="/">
             <img
               src="https://fintechyazilim.com/assets/img/business-2/logo.svg"
               className="d-inline-block"
@@ -49,7 +49,7 @@ const NavBar = () => {
               Change password
             </Link>
             {loggedIn && (
-              <Link to="/real-world-mini-app-fintech">
+              <Link to="/">
                 <Button
                   variant="danger"
                   className="mx-3 "

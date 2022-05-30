@@ -19,7 +19,7 @@ const AppRouter = () => {
         <Route path="/ChangePassword" element={<PrivateRouter />}>
           <Route path="" element={<ChangePassword />} />
         </Route>
-        <Route path="/real-world-mini-app-fintech" element={<PrivateRouter />}>
+        <Route path="/" element={<PrivateRouter />}>
           <Route path="" element={<Main />} />
         </Route>
 

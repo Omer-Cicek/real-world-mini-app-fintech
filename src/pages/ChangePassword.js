@@ -46,7 +46,7 @@ const ChangePassword = () => {
           data.data.IsSuccess,
           data.data.Result.Message || 'Successfully logged in!'
         );
-        data.data.IsSuccess && navigate('/real-world-mini-app-fintech');
+        data.data.IsSuccess && navigate('/');
       })
 
       .catch((err) => {
