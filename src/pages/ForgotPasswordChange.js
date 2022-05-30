@@ -88,7 +88,6 @@ const ForgotPasswordChange = () => {
               {touched.email && errors.email ? (
                 <p className="text-danger">{errors.email}</p>
               ) : null}
-              <p>fintechtestuser@yandex.com</p>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword2">
               <Form.Label>Password</Form.Label>
@@ -106,7 +105,6 @@ const ForgotPasswordChange = () => {
               {touched.password && errors.password ? (
                 <p className="text-danger">{errors.password}</p>
               ) : null}
-              <p>99Salman99*</p>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Confirm Password</Form.Label>

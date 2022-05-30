@@ -93,7 +93,6 @@ const ChangePassword = () => {
               {touched.email && errors.email ? (
                 <p className="text-danger">{errors.email}</p>
               ) : null}
-              <p>fintechtestuser@yandex.com</p>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Current Password</Form.Label>
@@ -111,7 +110,6 @@ const ChangePassword = () => {
               {touched.password && errors.password ? (
                 <p className="text-danger">{errors.password}</p>
               ) : null}
-              <p>99Salman99*</p>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword2">
               <Form.Label>New Password</Form.Label>

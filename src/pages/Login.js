@@ -107,7 +107,6 @@ const Login = () => {
               {touched.password && errors.password ? (
                 <p className="text-danger">{errors.password}</p>
               ) : null}
-              <h6>99Salman99*</h6>
               <Form.Group className="d-flex justify-content-between">
                 <Link to="/forgot-password">Forgot password?</Link>
               </Form.Group>
