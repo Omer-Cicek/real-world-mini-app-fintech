@@ -38,7 +38,8 @@ const Login = () => {
         data.data.IsSuccess === true &&
           dispatch(loginSuccess({ decodedToken, loggedIn: true }));
         console.log(data);
-        data.data.IsSuccess === true && navigate('/main');
+        data.data.IsSuccess === true &&
+          navigate('/real-world-mini-app-fintech');
         SweetAlertsFunction(
           data.data.IsSuccess,
           data.data.Result.Message || 'Successfully logged in!'
